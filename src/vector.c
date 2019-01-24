@@ -1,3 +1,12 @@
+/*
+ *--------------------------------------
+ * File: vector.c
+ * Author: Garrett Luu
+ * Description: Implementation of a vector structure, representing a point in
+ *     three-dimensional space
+ *--------------------------------------
+ */
+
 /* Keep these headers */
 #include <stdbool.h>
 #include <stddef.h>
@@ -10,11 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct vector {
-  double x;
-  double y;
-  double z;
-} vector_t;
+#include "vector.h"
 
 vector_t *newVector(double xCoord, double yCoord, double zCoord) {
   vector_t vector;

@@ -1,7 +1,5 @@
-## Cuboid
+## Cuboid - A 3D graphics and linear algebra library for the CE
 
-
+Nothing here yet!
 
 ---
-
-This template is a part of the C SDK Toolchain for use on the CE.
