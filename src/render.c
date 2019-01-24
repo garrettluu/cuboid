@@ -24,10 +24,7 @@
 /* Vectors */
 #include "vector.h"
 
-typedef struct pixel {
-  double x;
-  double y;
-} pixel_t;
+#include "render.h"
 
 void drawAxes(uint16_t centerX, uint16_t centerY, uint16_t length) {
   //TODO: Add x, y, z axes;
@@ -41,10 +38,10 @@ void connect(pixel_t point1, pixel_t point2, uint8_t color) {
 
 void drawVector(vector_t vector, uint8_t color) {
   uint16_t test = 100;
+  //TODO: Assign something to start
   pixel_t start;
-  pixel_t end;
-  end = &projectOrthographic(vector, test, test, test);
-  connect(start, &end, color);
+  pixel_t *end = projectOrthographic(vector, test, test, test);
+  connect(start, *end, color);
 }
 
 /* Orthographically projects the given 3d vector onto the 2d plane */
@@ -56,7 +53,7 @@ pixel_t *projectOrthographic(vector_t point, uint16_t scale,
   return &result;
 }
 
-vector_t *rotateEuler(vector_t point, double alpha, double beta, double gamma) {
+vector_t rotateEuler(vector_t *point, double alpha, double beta, double gamma) {
     vector_t result;
-    return &result;
+    return result;
 }
