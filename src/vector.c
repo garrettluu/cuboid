@@ -54,4 +54,5 @@ vector_t *cross(vector_t v1, vector_t v2) {
   cross.x = ((v1.y * v2.z) - (v2.y * v1.z));
   cross.y = -((v1.x * v2.z) - (v2.x * v1.z));
   cross.z = (v1.x * v2.y) - (v2.x * v1.y);
+  return &cross;
 }
