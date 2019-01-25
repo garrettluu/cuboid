@@ -56,3 +56,17 @@ vector_t *cross(vector_t v1, vector_t v2) {
   cross.z = (v1.x * v2.y) - (v2.x * v1.y);
   return &cross;
 }
+
+vector_t *normalize(vector_t vector) {
+  float length = length(vector);
+  vector_t unit;
+  unit.x = vector.x / length;
+  unit.y = vector.y / length;
+  unit.z = vector.z / length;
+  return &unit;
+}
+
+float length(vector_t vector) {
+  return sqrt((vector.x * vector.)x + (vector.y * vector.y) +
+    (vector.z * vector.z));
+}
