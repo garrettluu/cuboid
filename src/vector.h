@@ -16,5 +16,7 @@ vector_t *add(vector_t v1, vector_t v2);
 vector_t *subtract(vector_t v1, vector_t v2);
 double dot(vector_t v1, vector_t v2);
 vector_t *cross(vector_t v1, vector_t v2);
+vector_t *normalize(vector_t vector);
+float length(vector_t vector);
 
 #endif

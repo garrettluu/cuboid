@@ -23,9 +23,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Vectors */
+/* Project header files */
 #include "vector.h"
-
 #include "render.h"
 
 static const pixel_t center = {SCREEN_CENTER_X, SCREEN_CENTER_Y};
@@ -47,14 +46,22 @@ void connect(pixel_t point1, pixel_t point2, uint8_t color) {
   gfx_Line(point1.x, point1.y, point2.x, point2.y);
 }
 
+/* Test */
 void drawVector(vector_t vector, uint8_t color) {
-  uint16_t test = 100;
+  uint16_t test = 10;
   pixel_t *start = &center;
   pixel_t *end = projectOrthographic(vector, test, SCREEN_CENTER_X, SCREEN_CENTER_Y);
   connect(*start, *end, color);
+  free(end);
 }
 
-/* Orthographically projects the given 3d vector onto the 2d plane */
+/*
+ * Orthographically projects the given 3d vector onto the 2d plane
+ *
+ * point: the vector to be projected
+ * scale: how many pixels each unit in the 3d world takes up
+ * offsetX and offsetY: where to draw the center
+ */
 pixel_t *projectOrthographic(vector_t point, uint16_t scale,
     uint16_t offsetX, uint16_t offsetY) {
   pixel_t result;
@@ -68,5 +75,13 @@ void rotateYaw(vector_t *point, double yaw) {
   (*point).x = (original.x * cos(yaw)) - (original.y * sin(yaw));
   (*point).y = (original.x * sin(yaw)) + (original.y * cos(yaw));
   (*point).z = original.z;
+  free(&original);
+}
+
+void rotatePitch(vector_t *point, double pitch) {
+  vector_t original = *point;
+  (*point).x = original.x;
+  (*point).y = (original.y * cos(pitch)) - (original.z * sin(pitch));
+  (*point).z = (original.y * sin(pitch)) + (original.z * cos(pitch));
   free(&original);
 }
