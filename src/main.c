@@ -40,6 +40,8 @@ vector_t other3 = {-3, 0, -5};
 
 void main(void) {
   sk_key_t key;
+  pixel_t centerPerspective = {SCREEN_CENTER_X / 2, SCREEN_CENTER_Y};
+  pixel_t centerOrthographic = {SCREEN_CENTER_X * 1.5, SCREEN_CENTER_Y};
 
   prgm_CleanUp();
   gfx_Begin();
@@ -51,13 +53,21 @@ void main(void) {
 
     gfx_FillScreen(gfx_white);
 
-    drawVector(iHat, 0, &projectOrthographic);
-    drawVector(jHat, 0, &projectOrthographic);
-    drawVector(kHat, 0, &projectOrthographic);
+    drawVector(iHat, 0, centerPerspective, 2.5, &projectPerspective);
+    drawVector(jHat, 0, centerPerspective, 2.5, &projectPerspective);
+    drawVector(kHat, 0, centerPerspective, 2.5, &projectPerspective);
 
-    // drawVector(other1, gfx_green, &projectOrthographic);
-    // drawVector(other2, gfx_green, &projectOrthographic);
-    // drawVector(other3, gfx_green, &projectOrthographic);
+    drawVector(other1, 0, centerPerspective, 2.5, &projectPerspective);
+    // drawVector(other2, 0, centerPerspective, 2.5, &projectPerspective);
+    drawVector(other3, 0, centerPerspective, 2.5, &projectPerspective);
+
+    drawVector(iHat, 0, centerOrthographic, 10, &projectOrthographic);
+    drawVector(jHat, 0, centerOrthographic, 10, &projectOrthographic);
+    drawVector(kHat, 0, centerOrthographic, 10, &projectOrthographic);
+
+    drawVector(other1, 0, centerOrthographic, 10, &projectOrthographic);
+    // drawVector(other2, 0, centerOrthographic, 10, &projectOrthographic);
+    drawVector(other3, 0, centerOrthographic, 10, &projectOrthographic);
 
     gfx_SwapDraw();
 

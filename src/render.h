@@ -13,7 +13,7 @@ pixel_t *newPixel(uint16_t x, uint16_t y);
 void drawAxes(uint16_t centerX, uint16_t centerY, uint16_t length);
 
 void connect(pixel_t point1, pixel_t point2, uint8_t color);
-void drawVector(vector_t vector, uint8_t color,
+void drawVector(vector_t vector, uint8_t color, pixel_t center, uint16_t scale,
     pixel_t* (*projection)(vector_t, uint16_t, float, uint16_t, uint16_t));
 
 pixel_t *projectOrthographic(vector_t point, uint16_t scale, float focalLength,
