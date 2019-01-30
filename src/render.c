@@ -46,11 +46,13 @@ void connect(pixel_t point1, pixel_t point2, uint8_t color) {
   gfx_Line(point1.x, point1.y, point2.x, point2.y);
 }
 
-/* Test */
-void drawVector(vector_t vector, uint8_t color) {
+/* Draws a vector */
+void drawVector(vector_t vector, uint8_t color,
+    pixel_t* (*projection)(vector_t, uint16_t, float, uint16_t, uint16_t)) {
   uint16_t test = 10;
   pixel_t *start = &center;
-  pixel_t *end = projectOrthographic(vector, test, SCREEN_CENTER_X, SCREEN_CENTER_Y);
+  pixel_t *end = (projection)(vector, test, test, SCREEN_CENTER_X,
+      SCREEN_CENTER_Y);
   connect(*start, *end, color);
   free(end);
 }
@@ -62,7 +64,7 @@ void drawVector(vector_t vector, uint8_t color) {
  * scale: how many pixels each unit in the 3d world takes up
  * offsetX and offsetY: where to draw the center
  */
-pixel_t *projectOrthographic(vector_t point, uint16_t scale,
+pixel_t *projectOrthographic(vector_t point, uint16_t scale, float focalLength,
     uint16_t offsetX, uint16_t offsetY) {
   pixel_t result;
   result.x = scale * point.x + offsetX;
@@ -70,6 +72,29 @@ pixel_t *projectOrthographic(vector_t point, uint16_t scale,
   return &result;
 }
 
+/*
+ * Perspectively projects the given 3d vector onto the 2d plane
+ *
+ * point: the vector to be projected
+ * camera: the location of the camera
+ * scale: how many pixels each unit in the 3d world takes up
+ * offsetX and offsetY: where to draw the center
+ */
+pixel_t *projectPerspective(vector_t point, uint16_t cameraDist,
+    float focalLength, uint16_t offsetX, uint16_t offsetY) {
+  pixel_t result;
+  result.x = point.x * (focalLength / (point.z + cameraDist));
+  result.y = point.y * (focalLength / (point.z + cameraDist));
+  return &result;
+}
+
+/*
+ * Rotates a vector about the z-axis by a certain number of radians
+ * NOTE: This modifies the values of the input vector, so use with caution
+ *
+ * point: the pointer to the vector to be rotated
+ * yaw: the number of radians to rotate
+ */
 void rotateYaw(vector_t *point, double yaw) {
   vector_t original = *point;
   (*point).x = (original.x * cos(yaw)) - (original.y * sin(yaw));
@@ -78,10 +103,33 @@ void rotateYaw(vector_t *point, double yaw) {
   free(&original);
 }
 
+/*
+ * Rotates a vector about the x-axis by a certain number of radians
+ * NOTE: This modifies the values of the input vector, so use with caution
+ *
+ * point: the pointer to the vector to be rotated
+ * pitch: the number of radians to rotate
+ */
 void rotatePitch(vector_t *point, double pitch) {
   vector_t original = *point;
   (*point).x = original.x;
   (*point).y = (original.y * cos(pitch)) - (original.z * sin(pitch));
   (*point).z = (original.y * sin(pitch)) + (original.z * cos(pitch));
+  free(&original);
+}
+
+/*
+ * Rotates a vector about the y-axis by a certain number of radians
+ * NOTE: This modifies the values of the input vector, so use with caution
+ *
+ * point: the pointer to the vector to be rotated
+ * roll: the number of radians to rotate
+ */
+void rotateRoll(vector_t *point, double roll) {
+  //TODO: update the calculation for roll
+  vector_t original = *point;
+  (*point).x = original.x;
+  (*point).y = (original.y * cos(roll)) - (original.z * sin(roll));
+  (*point).z = (original.y * sin(roll)) + (original.z * cos(roll));
   free(&original);
 }

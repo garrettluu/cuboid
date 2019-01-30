@@ -36,7 +36,7 @@ vector_t kHat = {0, 0, 1};
 
 vector_t other1 = {1, 0, 1};
 vector_t other2 = {0, 2, 3};
-vector_t other3 = {3, 0, 5};
+vector_t other3 = {-3, 0, -5};
 
 void main(void) {
   sk_key_t key;
@@ -51,13 +51,13 @@ void main(void) {
 
     gfx_FillScreen(gfx_white);
 
-    drawVector(iHat, 0);
-    drawVector(jHat, 0);
-    drawVector(kHat, 0);
+    drawVector(iHat, 0, &projectOrthographic);
+    drawVector(jHat, 0, &projectOrthographic);
+    drawVector(kHat, 0, &projectOrthographic);
 
-    drawVector(other1, gfx_green);
-    drawVector(other2, gfx_green);
-    drawVector(other3, gfx_green);
+    // drawVector(other1, gfx_green, &projectOrthographic);
+    // drawVector(other2, gfx_green, &projectOrthographic);
+    // drawVector(other3, gfx_green, &projectOrthographic);
 
     gfx_SwapDraw();
 
@@ -70,7 +70,6 @@ void main(void) {
       rotateYaw(&other2, .3);
       rotateYaw(&other3, .3);
 
- //   } else if (key == sk_Up) {
       rotatePitch(&iHat, .3);
       rotatePitch(&jHat, .3);
       rotatePitch(&kHat, .3);
@@ -81,25 +80,24 @@ void main(void) {
 
       delay(.033);
 
-  //  }
   }
 
   //Test drawing axes
-  drawVector(iHat, 0);
-  drawVector(jHat, 0);
-  drawVector(kHat, 0);
+  // drawVector(iHat, 0);
+  // drawVector(jHat, 0);
+  // drawVector(kHat, 0);
 
   gfx_FillScreen(gfx_white);
 
   //Test rotation
-  rotateYaw(&iHat, 3);
-  rotateYaw(&jHat, 3);
-  rotateYaw(&kHat, 3);
+  // rotateYaw(&iHat, 3);
+  // rotateYaw(&jHat, 3);
+  // rotateYaw(&kHat, 3);
 
   //Redraw
-  drawVector(iHat, 0);
-  drawVector(jHat, 0);
-  drawVector(kHat, 0);
+  // drawVector(iHat, 0);
+  // drawVector(jHat, 0);
+  // drawVector(kHat, 0);
 
   while (!os_GetCSC());
 

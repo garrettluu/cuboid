@@ -21,7 +21,7 @@
 
 #include "vector.h"
 
-vector_t *newVector(double xCoord, double yCoord, double zCoord) {
+vector_t *newVector(float xCoord, float yCoord, float zCoord) {
   vector_t vector;
   vector.x = xCoord;
   vector.y = yCoord;
@@ -58,15 +58,22 @@ vector_t *cross(vector_t v1, vector_t v2) {
 }
 
 vector_t *normalize(vector_t vector) {
-  float length = length(vector);
+  float norm = length(vector);
   vector_t unit;
-  unit.x = vector.x / length;
-  unit.y = vector.y / length;
-  unit.z = vector.z / length;
+  unit.x = vector.x / norm;
+  unit.y = vector.y / norm;
+  unit.z = vector.z / norm;
   return &unit;
 }
 
 float length(vector_t vector) {
-  return sqrt((vector.x * vector.)x + (vector.y * vector.y) +
-    (vector.z * vector.z));
+  float result = sqrt(dot(vector, vector));
+  return result;
+}
+
+float distance(vector_t v1, vector_t v2) {
+  vector_t *diff = subtract(v1, v2);
+  float result = length(*diff);
+  free(&diff);
+  return result;
 }
