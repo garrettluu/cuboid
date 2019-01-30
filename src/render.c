@@ -46,7 +46,7 @@ void connect(pixel_t point1, pixel_t point2, uint8_t color) {
 
 /* Draws a vector */
 void drawVector(vector_t vector, uint8_t color, pixel_t center, uint16_t scale,
-    pixel_t* (*projection)(vector_t, uint16_t, float, uint16_t, uint16_t)) {
+    projection_t projection) {
   uint16_t test = 10;
   pixel_t *end = (*projection)(vector, scale, test * 2, center.x,
       center.y);
@@ -93,9 +93,9 @@ pixel_t *projectPerspective(vector_t point, uint16_t cameraDist,
  */
 void rotateYaw(vector_t *point, double yaw) {
   vector_t original = *point;
-  (*point).x = (original.x * cos(yaw)) - (original.y * sin(yaw));
-  (*point).y = (original.x * sin(yaw)) + (original.y * cos(yaw));
-  (*point).z = original.z;
+  point->x = (original.x * cos(yaw)) - (original.y * sin(yaw));
+  point->y = (original.x * sin(yaw)) + (original.y * cos(yaw));
+  point->z = original.z;
   free(&original);
 }
 
@@ -108,9 +108,9 @@ void rotateYaw(vector_t *point, double yaw) {
  */
 void rotatePitch(vector_t *point, double pitch) {
   vector_t original = *point;
-  (*point).x = original.x;
-  (*point).y = (original.y * cos(pitch)) - (original.z * sin(pitch));
-  (*point).z = (original.y * sin(pitch)) + (original.z * cos(pitch));
+  point->x = original.x;
+  point->y = (original.y * cos(pitch)) - (original.z * sin(pitch));
+  point->z = (original.y * sin(pitch)) + (original.z * cos(pitch));
   free(&original);
 }
 
@@ -124,8 +124,8 @@ void rotatePitch(vector_t *point, double pitch) {
 void rotateRoll(vector_t *point, double roll) {
   //TODO: update the calculation for roll
   vector_t original = *point;
-  (*point).x = original.x;
-  (*point).y = (original.y * cos(roll)) - (original.z * sin(roll));
-  (*point).z = (original.y * sin(roll)) + (original.z * cos(roll));
+  point->x = original.x;
+  point->y = (original.y * cos(roll)) - (original.z * sin(roll));
+  point->z = (original.y * sin(roll)) + (original.z * cos(roll));
   free(&original);
 }
