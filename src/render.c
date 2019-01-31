@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 /* Project header files */
 #include "vector.h"
@@ -44,12 +45,18 @@ void connect(pixel_t point1, pixel_t point2, uint8_t color) {
   gfx_Line(point1.x, point1.y, point2.x, point2.y);
 }
 
-/* Draws a vector */
-void drawVector(vector_t vector, uint8_t color, pixel_t center, uint16_t scale,
-    projection_t projection) {
-  uint16_t test = 10;
-  pixel_t *end = (*projection)(vector, scale, test * 2, center.x,
-      center.y);
+/*
+ * Draws a vector
+ *
+ * vector: the vector to be drawn
+ * color: the color to use
+ * center: where to start drawing the vector
+ * projection: what type of projection to use
+ * params: the parameters to be passed to the projection
+ */
+void drawVector(vector_t vector, uint8_t color, pixel_t center,
+    projection_t projection, float *params) {
+  pixel_t *end = (*projection)(vector, center, params);
   connect(center, *end, color);
 }
 
@@ -57,14 +64,18 @@ void drawVector(vector_t vector, uint8_t color, pixel_t center, uint16_t scale,
  * Orthographically projects the given 3d vector onto the 2d plane
  *
  * point: the vector to be projected
- * scale: how many pixels each unit in the 3d world takes up
- * offsetX and offsetY: where to draw the center
+ * origin: where to place (0, 0, 0)
+ *
+ * === params ===
+ * [0] scale: how many pixels one unit in the 3d word takes up
  */
-pixel_t *projectOrthographic(vector_t point, uint16_t scale, float focalLength,
-    uint16_t offsetX, uint16_t offsetY) {
+pixel_t *projectOrthographic(vector_t point, pixel_t origin, float *params) {
   pixel_t result;
-  result.x = scale * point.x + offsetX;
-  result.y = -scale * point.z + offsetY;
+  uint8_t scale;
+  va_list args;
+  scale = *params;
+  result.x = scale * point.x + origin.x;
+  result.y = -scale * point.z + origin.y;
   return &result;
 }
 
@@ -72,15 +83,22 @@ pixel_t *projectOrthographic(vector_t point, uint16_t scale, float focalLength,
  * Perspectively projects the given 3d vector onto the 2d plane
  *
  * point: the vector to be projected
- * camera: the location of the camera
- * scale: how many pixels each unit in the 3d world takes up
- * offsetX and offsetY: where to draw the center
+ * origin: where to place (0, 0, 0)
+ *
+ * === params ===
+ * [0] cameraDist: distance the camera is away from the origin
+ * [1] focalLength: focal length of camera (zoom)
  */
-pixel_t *projectPerspective(vector_t point, uint16_t cameraDist,
-    float focalLength, uint16_t offsetX, uint16_t offsetY) {
+pixel_t *projectPerspective(vector_t point, pixel_t origin, float *params) {
   pixel_t result;
-  result.x = point.x * (focalLength / (point.y + cameraDist)) + offsetX;
-  result.y = -point.z * (focalLength / (point.y + cameraDist)) + offsetY;
+  uint8_t cameraDist;
+  float focalLength;
+
+  cameraDist = *params;
+  focalLength = *(params + 1);
+
+  result.x = point.x * (focalLength / (point.y + cameraDist)) + origin.x;
+  result.y = -point.z * (focalLength / (point.y + cameraDist)) + origin.y;
   return &result;
 }
 
