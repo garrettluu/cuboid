@@ -43,7 +43,7 @@ void main(void) {
   pixel_t centerPerspective = {SCREEN_CENTER_X / 2, SCREEN_CENTER_Y};
   pixel_t centerOrthographic = {SCREEN_CENTER_X * 1.5, SCREEN_CENTER_Y};
 
-  float test1[] = {3, 20};
+  float test1[] = {2.5, 20};
   float test2[] = {10};
 
   prgm_CleanUp();

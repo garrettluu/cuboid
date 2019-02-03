@@ -22,7 +22,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
 
 /* Project header files */
 #include "vector.h"
@@ -39,7 +38,13 @@ void drawAxes(uint16_t centerX, uint16_t centerY, uint16_t length) {
 
 }
 
-/* Connects two pixels together with a line */
+/*
+ * Connects two pixels together with a line
+ *
+ * point1: start point of line
+ * point2: end point of line
+ * color: color of line
+ */
 void connect(pixel_t point1, pixel_t point2, uint8_t color) {
   gfx_SetColor(color);
   gfx_Line(point1.x, point1.y, point2.x, point2.y);
@@ -91,7 +96,7 @@ pixel_t *projectOrthographic(vector_t point, pixel_t origin, float *params) {
  */
 pixel_t *projectPerspective(vector_t point, pixel_t origin, float *params) {
   pixel_t result;
-  uint8_t cameraDist;
+  float cameraDist;
   float focalLength;
 
   cameraDist = *params;
