@@ -27,7 +27,7 @@ transform_t *newTransform(float *elements) {
   return transform;
 }
 
-void tranformVector(vector_t *vector, transform_t transform) {
+void transformVector(vector_t *vector, transform_t transform) {
   vector_t original = *vector;
   vector->x = (original.x * (*(transform.matrix))) +
       (original.y * (*(transform.matrix + 1))) +

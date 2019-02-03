@@ -26,6 +26,7 @@
 /* Project header files */
 #include "vector.h"
 #include "render.h"
+#include "matrix.h"
 
 /* Put your function prototypes here */
 
@@ -43,12 +44,21 @@ void main(void) {
   pixel_t centerPerspective = {SCREEN_CENTER_X / 2, SCREEN_CENTER_Y};
   pixel_t centerOrthographic = {SCREEN_CENTER_X * 1.5, SCREEN_CENTER_Y};
 
+  transform_t *identity;
+
   float test1[] = {2.5, 20};
   float test2[] = {10};
+
+  float testMatrix[] = {1, 0, 0,
+                        0, 1, 0,
+                        0, 0, 1};
 
   prgm_CleanUp();
   gfx_Begin();
   gfx_SetDrawBuffer();
+
+  identity = newTransform(testMatrix);
+  transformVector(&iHat, *identity);
 
   key = os_GetCSC();
   while (key != sk_2nd) {

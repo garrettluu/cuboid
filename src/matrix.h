@@ -7,6 +7,6 @@ typedef struct transformation {
 
 transform_t *newTransform(float *elements);
 
-void tranformVector(vector_t *vector, transform_t transform);
+void transformVector(vector_t *vector, transform_t transform);
 
 #endif

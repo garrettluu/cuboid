@@ -66,6 +66,17 @@ void drawVector(vector_t vector, uint8_t color, pixel_t center,
 }
 
 /*
+ * Turns on the given pixel with the given color
+ *
+ * pixel: the pixel to be turned on
+ * color: the color to use
+ */
+void drawPixel(pixel_t pixel, uint8_t color) {
+  gfx_SetColor(color);
+  gfx_SetPixel(pixel.x, pixel.y);
+}
+
+/*
  * Orthographically projects the given 3d vector onto the 2d plane
  *
  * point: the vector to be projected

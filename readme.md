@@ -19,10 +19,12 @@ A point is 3D space is represented by a vector, with x, y, and z components.
 The library has support for basic vector arithmetic, such as addition,
 subtraction, dot products, and cross products.
 
-#### Matrices (not implemented yet)
+#### Matrices
 
 A matrix is used to perform linear transformations on vectors. Generally, they
-can be thought of as ways of "stretching" or moving vectors around.
+can be thought of as ways of "stretching" or moving vectors around. They can be
+created from either arrays of length at least 9 or multi-dimensional arrays of
+3x3.
 
 #### Pixels
 
