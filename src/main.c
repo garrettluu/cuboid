@@ -49,7 +49,7 @@ void main(void) {
   float test1[] = {2.5, 20};
   float test2[] = {10};
 
-  float testMatrix[] = {1, 0, 0,
+  float testMatrix[] = {2, 0, 0,
                         0, 1, 0,
                         0, 0, 1};
 

@@ -22,11 +22,19 @@
 #include "vector.h"
 
 vector_t *newVector(float xCoord, float yCoord, float zCoord) {
-  vector_t vector;
-  vector.x = xCoord;
-  vector.y = yCoord;
-  vector.z = zCoord;
-  return &vector;
+  vector_t *vector = (vector_t *) malloc(sizeof(vector_t));
+  vector->x = xCoord;
+  vector->y = yCoord;
+  vector->z = zCoord;
+  return vector;
+}
+
+vector_t *newVectorFromArray(float *components) {
+  vector_t *vector = (vector_t *) malloc(sizeof(vector_t));
+  vector->x = *components;
+  vector->y = *(components + 1);
+  vector->z = *(components + 2);
+  return vector;
 }
 
 vector_t *add(vector_t v1, vector_t v2) {
