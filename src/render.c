@@ -103,7 +103,9 @@ pixel_t *projectOrthographic(vector_t point, pixel_t origin, float *params) {
  *
  * === params ===
  * [0] cameraDist: distance the camera is away from the origin
+ *    (smaller = closer)
  * [1] focalLength: focal length of camera (zoom)
+ *    (smaller = less zoomed in)
  */
 pixel_t *projectPerspective(vector_t point, pixel_t origin, float *params) {
   pixel_t result;
