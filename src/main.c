@@ -46,7 +46,7 @@ void main(void) {
 
   transform_t *identity;
 
-  float test1[] = {2.5, 20};
+  float test1[] = {5, 40};
   float test2[] = {10};
 
   float testMatrix[] = {2, 0, 0,
