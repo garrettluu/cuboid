@@ -27,6 +27,12 @@ transform_t *newTransform(float *elements) {
   return transform;
 }
 
+/*
+ * Takes a vector and applies a linear transformation
+ * NOTE: This modifies the value of the original vector, so use with caution
+ *
+ * vector: vector to be transformed
+ */
 void transformVector(vector_t *vector, transform_t transform) {
   vector_t original = *vector;
   vector->x = (original.x * (*(transform.matrix))) +
