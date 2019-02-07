@@ -40,6 +40,7 @@ vector_t other2 = {0, 2, 3};
 vector_t other3 = {-3, 0, -5};
 
 void main(void) {
+  // vector_t iHat = newVector(1, 0, 0);
   sk_key_t key;
   pixel_t centerPerspective = {SCREEN_CENTER_X / 2, SCREEN_CENTER_Y};
   pixel_t centerOrthographic = {SCREEN_CENTER_X * 1.5, SCREEN_CENTER_Y};
@@ -59,6 +60,7 @@ void main(void) {
 
   identity = newTransform(testMatrix);
   transformVector(&iHat, *identity);
+  free(identity);
 
   key = os_GetCSC();
   while (key != sk_2nd) {
@@ -105,24 +107,18 @@ void main(void) {
 
   }
 
-  //Test drawing axes
-  // drawVector(iHat, 0);
-  // drawVector(jHat, 0);
-  // drawVector(kHat, 0);
-
   gfx_FillScreen(gfx_white);
 
-  //Test rotation
-  // rotateYaw(&iHat, 3);
-  // rotateYaw(&jHat, 3);
-  // rotateYaw(&kHat, 3);
-
-  //Redraw
-  // drawVector(iHat, 0);
-  // drawVector(jHat, 0);
-  // drawVector(kHat, 0);
 
   while (!os_GetCSC());
+
+  free(&iHat);
+  free(&jHat);
+  free(&kHat);
+
+  free(&other1);
+  free(&other2);
+  free(&other3);
 
   gfx_End();
   prgm_CleanUp();

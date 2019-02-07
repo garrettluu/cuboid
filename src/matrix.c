@@ -46,3 +46,9 @@ void transformVector(vector_t *vector, transform_t transform) {
       (original.z * (*(transform.matrix + 8)));
   free(&original);
 }
+
+transform_t *compose(transform_t t1, transform_t t2) {
+  transform_t *result = (transform_t *) malloc(sizeof(transform_t));
+  //TODO: matrix multiplication algorithm
+  return result;
+}
