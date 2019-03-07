@@ -34,8 +34,13 @@ pixel_t *newPixel(uint16_t x, uint16_t y) {
   return &result;
 }
 
-void drawAxes(uint16_t centerX, uint16_t centerY, uint16_t length) {
+void drawAxes(pixel_t center, uint16_t length, projection_t projection,
+    float *params) {
+  vector_t xAxis = *(scale(basisX, length));
+  vector_t yAxis = *(scale(basisY, length));
+  vector_t zAxis = *(scale(basisZ, length));
 
+  drawVector(xAxis, gfx_black, center, projection, params);
 }
 
 /*
