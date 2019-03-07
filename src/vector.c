@@ -53,6 +53,14 @@ vector_t *subtract(vector_t v1, vector_t v2) {
   return &diff;
 }
 
+vector_t *scale(vector_t v1, float scaleFactor) {
+  vector_t *scaled = malloc(sizeof(vector_t));
+  scaled->x = v1.x * scaleFactor;
+  scaled->y = v1.y * scaleFactor;
+  scaled->z = v1.z * scaleFactor;
+  return scaled;
+}
+
 double dot(vector_t v1, vector_t v2) {
   return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
