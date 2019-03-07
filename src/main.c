@@ -2,7 +2,7 @@
  *--------------------------------------
  * File: main.c
  * Author: Garrett Luu
- * Description:
+ * Description: Used to demo and test functionality of cuboid library
  *--------------------------------------
  */
 
@@ -45,7 +45,10 @@ void main(void) {
   pixel_t centerPerspective = {SCREEN_CENTER_X / 2, SCREEN_CENTER_Y};
   pixel_t centerOrthographic = {SCREEN_CENTER_X * 1.5, SCREEN_CENTER_Y};
 
-  transform_t *identity;
+  transform_t *testTransform;
+  transform_t *testTransform2;
+
+  transform_t *testAdd;
 
   float test1[] = {5, 40};
   float test2[] = {10};
@@ -54,13 +57,22 @@ void main(void) {
                         0, 1, 0,
                         0, 0, 1};
 
+  float testMatrix2[] = {2, 0, 0,
+                         0, 1, 0,
+                         0, 0, 1};
+
+
   prgm_CleanUp();
   gfx_Begin();
   gfx_SetDrawBuffer();
 
-  identity = newTransform(testMatrix);
-  transformVector(&iHat, *identity);
-  free(identity);
+  testTransform = newTransform(testMatrix);
+  testTransform2 = newTransform(testMatrix2);
+
+  testAdd = addMatrices(*testTransform, *testTransform2);
+
+  transformVector(&iHat, *testTransform);
+  free(testTransform);
 
   key = os_GetCSC();
   while (key != sk_2nd) {

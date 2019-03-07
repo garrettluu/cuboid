@@ -15,6 +15,7 @@ vector_t *newVector(float x, float y, float z);
 vector_t *newVectorFromArray(float* components);
 vector_t *add(vector_t v1, vector_t v2);
 vector_t *subtract(vector_t v1, vector_t v2);
+vector_t *scale(vector_t v1, float scaleFactor);
 double dot(vector_t v1, vector_t v2);
 vector_t *cross(vector_t v1, vector_t v2);
 vector_t *normalize(vector_t vector);
