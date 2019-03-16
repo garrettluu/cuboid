@@ -28,10 +28,10 @@
 #include "render.h"
 
 pixel_t *newPixel(uint16_t x, uint16_t y) {
-  pixel_t result;
-  result.x = x;
-  result.y = y;
-  return &result;
+  pixel_t *result = malloc(sizeof(pixel_t));
+  result->x = x;
+  result->y = y;
+  return result;
 }
 
 void drawAxes(pixel_t center, uint16_t length, projection_t projection,
