@@ -10,6 +10,7 @@ typedef struct RPNStack {
 RPNStack_t *makeRPNStack(uint8_t capacity);
 void pushRPN(RPNStack_t *stack, double value);
 double popRPN(RPNStack_t *stack);
+void freeRPNStack(RPNStack_t *stack);
 
 char *shunt(char *infix);
 double parse(char *rpn);
