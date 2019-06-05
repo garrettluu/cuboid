@@ -91,13 +91,11 @@ void drawPixel(pixel_t pixel, uint8_t color) {
  * [0] scale: how many pixels one unit in the 3d word takes up
  */
 pixel_t *projectOrthographic(vector_t point, pixel_t origin, float *params) {
-  pixel_t result;
+  pixel_t *result;
   uint8_t scale;
-  va_list args;
   scale = *params;
-  result.x = scale * point.x + origin.x;
-  result.y = -scale * point.z + origin.y;
-  return &result;
+  result = newPixel(scale * point.x + origin.x, -scale * point.z + origin.y);
+  return result;
 }
 
 /*
@@ -113,16 +111,17 @@ pixel_t *projectOrthographic(vector_t point, pixel_t origin, float *params) {
  *    (smaller = less zoomed in)
  */
 pixel_t *projectPerspective(vector_t point, pixel_t origin, float *params) {
-  pixel_t result;
+  pixel_t *result;
   float cameraDist;
   float focalLength;
 
-  cameraDist = *params;
-  focalLength = *(params + 1);
+  cameraDist = params[0];
+  focalLength = params[1];
 
-  result.x = point.x * (focalLength / (point.y + cameraDist)) + origin.x;
-  result.y = -point.z * (focalLength / (point.y + cameraDist)) + origin.y;
-  return &result;
+  result = newPixel(point.x * (focalLength / (point.y + cameraDist)) + origin.x,
+      -point.z * (focalLength / (point.y + cameraDist)) + origin.y);
+
+  return result;
 }
 
 /*
@@ -137,7 +136,6 @@ void rotateYaw(vector_t *point, double yaw) {
   point->x = (original.x * cos(yaw)) - (original.y * sin(yaw));
   point->y = (original.x * sin(yaw)) + (original.y * cos(yaw));
   point->z = original.z;
-  free(&original);
 }
 
 /*
@@ -152,7 +150,6 @@ void rotatePitch(vector_t *point, double pitch) {
   point->x = original.x;
   point->y = (original.y * cos(pitch)) - (original.z * sin(pitch));
   point->z = (original.y * sin(pitch)) + (original.z * cos(pitch));
-  free(&original);
 }
 
 /*
@@ -168,5 +165,4 @@ void rotateRoll(vector_t *point, double roll) {
   point->x = original.x;
   point->y = (original.y * cos(roll)) - (original.z * sin(roll));
   point->z = (original.y * sin(roll)) + (original.z * cos(roll));
-  free(&original);
 }
